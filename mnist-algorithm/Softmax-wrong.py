@@ -14,7 +14,7 @@ class Softmax:
     LEARNING_RATE = 0.1
     # WIDTH_IN_PIXELS = 28
     # 保存神经网络的文件路径
-    NN_FILE_PATH = 'Softmax.json'
+    NN_FILE_PATH = 'Softmax-wrong.json'
 
     def __init__(self, data_matrix, data_labels, training_indices, use_file=True):
         # sigmoid函数
