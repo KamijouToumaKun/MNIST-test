@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-
+# 第二层明明写错了，奇怪的是准确率还是很高，就留着吧……
 import csv
 import numpy as np
 from numpy import matrix
