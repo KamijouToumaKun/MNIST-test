@@ -71,8 +71,19 @@ class BPNeuralNetwork:
             # 后向传播得到误差向量
             actual_vals = [0] * 10 
             actual_vals[data.label] = 1
-            # 第一层是sigmoid，决定了计算hidden_error时的导数；
-            # 第二层是sigmoid，决定了损失函数的最佳选择是交叉熵（注意损失为loss，和error不是一个东西），于是得到output_error的计算公式
+            # output_error和hidden_error用于反向传播，更新权重矩阵与偏置向量
+
+            # 计算output_error时用到：损失函数 & 最后一层的激活函数的导数
+            # 这里最后一层的激活函数是sigmoid，用交叉熵作为损失函数和它搭配
+            # 损失函数选得好，则output_error很简单
+            # 推导详见https://blog.csdn.net/wangyangzhizhou/article/details/74348279
+
+            # 计算hidden_error时用到：theta2 & output_error & 第一层激活函数的导数
+            # 计算hidden_error的公式完全相同，区别只在于output_error的值
+            # 误差δ[l] = (theta[l].T dot δ[l+1]) multiply g'(z[l])，注意是用到上一层的激活函数的导数
+            # for sigmoid, g'(z[l]) = a[l] * (1-a[l])
+
+            # 更新theta1和theta2的公式也都是相同的这四行，所以一切的区别只在于output_error
             output_errors = np.mat(actual_vals).T - np.mat(y2)
             hidden_errors = np.multiply(np.dot(np.mat(self.theta2).T, output_errors), self.sigmoid_prime(sum1))
 
