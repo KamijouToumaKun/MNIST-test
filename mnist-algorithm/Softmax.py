@@ -75,11 +75,14 @@ class Softmax:
             # 后向传播得到误差向量
             actual_vals = [0] * 10 
             actual_vals[data.label] = 1
+            # 第一层是sigmoid，决定了计算hidden_error时的导数；
+            # 第二层是softmax，决定了损失函数的最佳选择是对数似然（注意损失为loss，和error不是一个东西）
+            # 但是我这里还是用的交叉熵；于是得到output_error的计算公式
             output_errors = np.mat(actual_vals).T - np.mat(y2) 
             # 误差δ[l] = (theta[l].T dot δ[l+1]) multiply g'(z[l])
             # for sigmoid, g'(z[l]) = a[l] * (1-a[l])
             # 用到的sigmoid的导数对应上一层
-            # softmax在最后一层，不会用到其导数（我还不知道它的导数怎么算）
+            # 一般softmax都用在最后一层，不会用到其导数（正好，我还不太懂它的导数怎么算）
             hidden_errors = np.multiply(np.dot(np.mat(self.theta2).T, output_errors), self.sigmoid_prime(sum1))
 
             # 更新权重矩阵与偏置向量
