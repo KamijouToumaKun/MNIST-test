@@ -71,6 +71,8 @@ class BPNeuralNetwork:
             # 后向传播得到误差向量
             actual_vals = [0] * 10 
             actual_vals[data.label] = 1
+            # 第一层是sigmoid，决定了计算hidden_error时的导数；
+            # 第二层是sigmoid，决定了损失函数的最佳选择是交叉熵（注意损失为loss，和error不是一个东西），于是得到output_error的计算公式
             output_errors = np.mat(actual_vals).T - np.mat(y2)
             hidden_errors = np.multiply(np.dot(np.mat(self.theta2).T, output_errors), self.sigmoid_prime(sum1))
 
